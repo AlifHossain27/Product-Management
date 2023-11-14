@@ -7,6 +7,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FaList } from "react-icons/fa"
 import { BsPeopleFill } from "react-icons/bs"
 import { TbMoneybag } from "react-icons/tb";
+import { LuLogIn } from "react-icons/lu";
 
 const Sidebar = () => {
     const menus = [
@@ -20,17 +21,17 @@ const Sidebar = () => {
       const [open, setOpen] =useState(true);
   return (
     <div className="border-r-2 border-secondary">
-        <div className={`min-h-screen ${open ? 'w-72':'w-16'} duration-500`}>
+        <div className={`h-screen ${open ? 'w-72':'w-16'} duration-500`}>
             <div className='py-5 px-5 flex justify-end'>
                 <HiMenuAlt3 
                 size='34' c
                 lassName='cursor-pointer' 
                 onClick={()=>setOpen(!open)}/>
             </div>
-            <div className="flex flex-col relative">
+            <div className="flex flex-col ">
                     {menus?.map((menu, i) => (
                     <Button variant='ghost' className='w-full justify-start rounded-none h-20'>
-                    <Link href={menu?.link} key={i} className="group flex items-center text-2xl  gap-3.5 p-1">
+                    <Link href={menu?.link} key={i} className="group flex items-center text-2xl gap-3.5 p-1 relative">
                     <div>{React.createElement(menu.icon, { size: "25" })}</div>
                     <h2 
                     style={{
@@ -43,8 +44,21 @@ const Sidebar = () => {
                     </Link>
                     </Button>
                     ))}
-                
+
             </div>
+                <div className='flex flex-col fixed bottom-1 '>
+                    <Button variant='ghost' className={`${open ? 'w-72':'w-16'} justify-start rounded-none h-20`}>
+                    <Link href='/' className="group flex items-center text-2xl gap-3.5 p-1 relative">
+                      <LuLogIn size="25"/>
+                      <h2
+                        className={
+                        `whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"}`
+                        }
+                      >Login</h2>
+                    </Link>
+                    </Button>
+                  </div>
+
         </div>
     </div>
 

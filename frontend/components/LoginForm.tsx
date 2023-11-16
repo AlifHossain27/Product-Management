@@ -6,17 +6,14 @@ import { useForm } from "react-hook-form"
 import  {
     Card,
     CardContent,
-    CardFooter,
     CardHeader,
     CardTitle,
   } from './ui/card'
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
   } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -46,8 +43,6 @@ const LoginForm = () => {
       })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
         console.log(values)
     }
 
@@ -67,7 +62,7 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Username" {...field} />
+                <Input autoComplete='off' placeholder="Username" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,7 +81,7 @@ const LoginForm = () => {
           )}
         />
         <div className='pt-2 pb-10'>
-        <Button className='text-center w-full h-12 text-lg' type="submit">Submit</Button>
+        <Button className='text-center w-full h-12 text-lg' type="submit">Login</Button>
         </div>
       </form>
     </Form>

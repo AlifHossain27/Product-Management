@@ -101,7 +101,7 @@ const ProductDataForm = () => {
                 </SelectTrigger>
                 <SelectContent className='rounded-none'>
                     <SelectItem className='rounded-none' value='true'>In Stock</SelectItem>
-                    <SelectItem className='rounded-none' value="false">Stock Out</SelectItem>
+                    <SelectItem className='rounded-none'value='false'>Stock Out</SelectItem>
                 </SelectContent>
                 </Select>
                 </FormControl>

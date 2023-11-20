@@ -1,7 +1,7 @@
 "use client"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown } from "lucide-react"
 import { LiaEditSolid } from "react-icons/lia";
 import { RiDeleteBin5Line } from "react-icons/ri";
 

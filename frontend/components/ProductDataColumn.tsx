@@ -61,5 +61,4 @@ export const columns: ColumnDef<Products>[] = [
       )
     },
   },
-
 ]

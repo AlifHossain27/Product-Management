@@ -55,7 +55,7 @@ const SalesDataForm = () => {
   return (
     <Card className=' pt-5 h-auto w-auto border-2 '>
         <CardHeader>
-            <CardTitle className='pt-5 text-3xl'>Products</CardTitle>
+            <CardTitle className='pt-5 text-3xl'>Sales</CardTitle>
             
         </CardHeader>
         <CardContent>

@@ -73,7 +73,7 @@ async function getData(): Promise<Products[]> {
 export default async function ProductDataTableView() {
   const data = await getData()
   return (
-    <div className='col-span-2'>
+    <div className='w-auto col-span-2 overflow-auto relative'>
       <DataTable columns={columns} data={data} />
       </div>
   )

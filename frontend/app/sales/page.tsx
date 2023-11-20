@@ -1,6 +1,6 @@
 import React from 'react'
 import SalesDataForm from '@/components/SalesDataForm';
-import SalesDataTable from '@/components/SalesDataTable';
+import SalesDataTableView from '@/components/SalesDataTableView';
 import { TbMoneybag } from "react-icons/tb";
 
 
@@ -13,7 +13,7 @@ const SalesPage = () => {
       </div>
       <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-1 h-5/6 w-auto px-1 py-1'>
         <SalesDataForm />
-        <SalesDataTable/>
+        <SalesDataTableView/>
       </div>
 
     </div>

@@ -43,7 +43,7 @@ export const columns: ColumnDef<Customers>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-          const products = row.original
+          const customers = row.original
           return (
             <div>
             <Button variant='ghost' size='sm' ><LiaEditSolid size='20' /></Button>

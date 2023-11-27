@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -33,7 +34,7 @@ const formSchema = z.object({
 
 
 const LoginForm = () => {
-
+    const router= useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -41,9 +42,21 @@ const LoginForm = () => {
           password: "",
         },
       })
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values.username)
+        const username = values.username
+        const password = values.password
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        await fetch('http://localhost:8000/api/login', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          credentials: 'include',
+          body: JSON.stringify({
+            'username': username,
+            'password': password
+          })
+        });
+        await router.push('/')
     }
 
   return (

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '../components/ui/button';
 import { HiMenuAlt3 } from "react-icons/hi";
@@ -18,7 +18,7 @@ const Sidebar = () => {
         
       ];
 
-      const [open, setOpen] =useState(true);
+    const [open, setOpen] =useState(true);
   return (
     <div className="border-r-2 border-secondary">
         <div className={`min-h-screen ${open ? 'w-72':'w-16'} duration-500`}>

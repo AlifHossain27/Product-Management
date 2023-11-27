@@ -18,7 +18,7 @@ import {
     FormMessage,
   } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import { useToast } from "@/components/ui/use-toast"
 import { IoPersonSharp } from "react-icons/io5";
 import { Button } from './ui/button';
 
@@ -31,9 +31,8 @@ const formSchema = z.object({
         message: "Password must be at least 6 characters.",
       }),
   })
-
-
 const LoginForm = () => {
+    const { toast } = useToast()
     const router= useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -46,8 +45,8 @@ const LoginForm = () => {
         console.log(values.username)
         const username = values.username
         const password = values.password
-
-        await fetch('http://localhost:8000/api/login', {
+        
+        const res = await fetch('http://localhost:8000/api/login', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           credentials: 'include',
@@ -56,7 +55,20 @@ const LoginForm = () => {
             'password': password
           })
         });
-        await router.push('/')
+        if (res.ok){
+          await router.push('/')
+          toast({
+            title: `Welcome ${username}`,
+            description: "Successfully logged in",
+          })
+          
+        }else{
+          toast({
+            variant: "destructive",
+            title: `${res.status} Login failed`,
+            description: "Incorrect username or password",
+          })
+        }
     }
 
   return (
@@ -94,7 +106,7 @@ const LoginForm = () => {
           )}
         />
         <div className='pt-2 pb-10'>
-        <Button className='text-center w-full h-12 text-lg' type="submit">Login</Button>
+        <Button className='text-center w-full h-12 text-lg' type="submit" >Login</Button>
         </div>
       </form>
     </Form>

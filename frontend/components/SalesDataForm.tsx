@@ -30,7 +30,7 @@ import { Button } from './ui/button'
 const formSchema = z.object({
     customerName: z.string(),
     totalAmount: z.coerce.number(),
-    pending: z.boolean(),
+    pending: z.enum(['pending','settled']),
     pendingAmount: z.coerce.number().optional(),
 })
 
@@ -43,11 +43,12 @@ const SalesDataForm = () => {
         defaultValues: {
           customerName: '',
           totalAmount: 0,
-          pending: false,
+          pending: 'settled',
           pendingAmount: 0
         },
       })
-
+    
+    const status = form.watch('pending')
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
     }
@@ -93,21 +94,22 @@ const SalesDataForm = () => {
             render={({ field }) => (
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Status :</FormLabel>
+                <Select onValueChange={field.onChange}>
                 <FormControl>
-                <Select>
                 <SelectTrigger className="w-full rounded-none">
                     <SelectValue placeholder="Status" />
                 </SelectTrigger>
+                </FormControl>
                 <SelectContent className='rounded-none'>
-                    <SelectItem className='rounded-none' value='true'>Pending</SelectItem>
-                    <SelectItem className='rounded-none' value="false">Settled</SelectItem>
+                    <SelectItem className='rounded-none' value='pending'>Pending</SelectItem>
+                    <SelectItem className='rounded-none' value="settled">Settled</SelectItem>
                 </SelectContent>
                 </Select>
-                </FormControl>
                 <FormMessage />
                 </FormItem>
             )}
             />
+            {status === 'pending' &&
             <FormField
             control={form.control}
             name="pendingAmount"
@@ -121,6 +123,7 @@ const SalesDataForm = () => {
                 </FormItem>
             )}
             />
+            }
             
             <Button type="submit" className='h-12 w-full'>Submit</Button>
         </form>

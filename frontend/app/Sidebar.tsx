@@ -43,6 +43,7 @@ const Sidebar = () => {
     useEffect(() => {
       (
         async () => {
+          try {
           const resp = await fetch('http://localhost:8000/api/user',{
             credentials: 'include'
           })
@@ -51,6 +52,9 @@ const Sidebar = () => {
           }else{
             setAuth(false)
           }
+        } catch(e){
+          console.log('connection failed')
+        }
         }
       )()
     })

@@ -54,6 +54,7 @@ export function DataTable<TData, TValue>({
   })
   table.getState().pagination.pageSize = 8
   return (
+    
     <div>
       <div className="flex items-center py-4">
         <Input

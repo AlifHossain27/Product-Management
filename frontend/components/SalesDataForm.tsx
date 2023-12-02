@@ -54,7 +54,7 @@ const SalesDataForm = () => {
     }
 
   return (
-    <Card className=' pt-5 h-auto w-auto border-2 '>
+    <Card className=' pt-5 h-max w-auto border-2 '>
         <CardHeader>
             <CardTitle className='pt-5 text-3xl'>Sales</CardTitle>
             
@@ -125,7 +125,9 @@ const SalesDataForm = () => {
             />
             }
             
-            <Button type="submit" className='h-12 w-full'>Submit</Button>
+            <div className='pb-10'>
+                <Button type="submit" className='h-12 w-full rounded-[9999px]'>Submit</Button>
+            </div>
         </form>
         </Form>
         </CardContent>

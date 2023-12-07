@@ -22,13 +22,15 @@ const Sidebar = () => {
       ];
 
     const [open, setOpen] =useState(true);
+
+
     const [auth, setAuth] = useState(false);
     const router = useRouter();
     const { toast } = useToast()
     let logoutBtn
 
     const logout = async() => {
-      await fetch('http://localhost:8000/api/logout',{
+      await fetch('http://localhost:8000/api/logout/',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         credentials: 'include'
@@ -45,7 +47,7 @@ const Sidebar = () => {
       (
         async () => {
           try {
-          const resp = await fetch('http://localhost:8000/api/user',{
+          const resp = await fetch('http://localhost:8000/api/me/',{
             credentials: 'include'
           })
           if (resp.ok){
@@ -59,6 +61,7 @@ const Sidebar = () => {
         }
       )()
     })
+    
 
     if (auth === true){
       logoutBtn = (
@@ -116,7 +119,7 @@ const Sidebar = () => {
                     </Link>
                       ))}
                 
-                {logoutBtn}
+                { logoutBtn }
                 </div>  
             </div>
             

@@ -11,7 +11,7 @@ export default function Home() {
     (
       async () => {
         try {
-        const resp = await fetch('http://localhost:8000/api/user',{
+        const resp = await fetch('http://localhost:8000/api/me/',{
           credentials: 'include'
         })
         if (resp.ok){

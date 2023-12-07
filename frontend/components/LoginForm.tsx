@@ -27,7 +27,7 @@ const formSchema = z.object({
     username: z.string().min(4, {
       message: "Username must be at least 4 characters.",
     }),
-    password: z.string().min(6, {
+    password: z.string().min(4, {
         message: "Password must be at least 6 characters.",
       }),
   })
@@ -46,7 +46,7 @@ const LoginForm = () => {
         const username = values.username
         const password = values.password
         
-        const res = await fetch('http://localhost:8000/api/login', {
+        const res = await fetch('http://localhost:8000/api/login/', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           credentials: 'include',

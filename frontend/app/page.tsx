@@ -2,11 +2,16 @@
 import Link from 'next/link'
 import { useEffect, useState } from "react"
 import { Button } from '../components/ui/button'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { logIn, logOut } from '@/redux/features/auth-slice'
+
 
 export default function Home() {
   let dashboardBtn
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState('')
+  const dispatcher = useDispatch<AppDispatch>()
   useEffect(() => {
     (
       async () => {
@@ -16,10 +21,12 @@ export default function Home() {
         })
         if (resp.ok){
           setAuth(true)
+          dispatcher(logIn())
           const data = await resp.json()
           setUser(data['first_name'])
         }else{
           setAuth(false)
+          dispatcher(logOut())
         }
       } catch(e){
         console.log('connection failed')

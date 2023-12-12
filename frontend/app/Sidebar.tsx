@@ -10,7 +10,10 @@ import { BsPeopleFill } from "react-icons/bs"
 import { TbMoneybag } from "react-icons/tb";
 import { LuLogIn } from "react-icons/lu";
 import { useToast } from "../components/ui/use-toast"
-
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { useAppSelector } from '@/redux/store';
+import { logOut } from '@/redux/features/auth-slice'
 
 const Sidebar = () => {
     const menus = [
@@ -22,9 +25,8 @@ const Sidebar = () => {
       ];
 
     const [open, setOpen] =useState(true);
-
-
-    const [auth, setAuth] = useState(false);
+    const dispatcher = useDispatch<AppDispatch>()
+    const isAuth = useAppSelector((state) => state.authReducer.value.isAuthenticated)
     const router = useRouter();
     const { toast } = useToast()
     let logoutBtn
@@ -40,30 +42,10 @@ const Sidebar = () => {
         title: `Bye Bye`,
         description: "Hope we will meet again !!",
       })
+      dispatcher(logOut())
       router.refresh()
     }
-
-    useEffect(() => {
-      (
-        async () => {
-          try {
-          const resp = await fetch('http://localhost:8000/api/me/',{
-            credentials: 'include'
-          })
-          if (resp.ok){
-            setAuth(true)
-          }else{
-            setAuth(false)
-          }
-        } catch(e){
-          console.log('connection failed')
-        }
-        }
-      )()
-    })
-    
-
-    if (auth === true){
+    if (isAuth === true){
       logoutBtn = (
         <div className='flex flex-col fixed bottom-1 '>
                   <Link href='#' className="group flex items-center p-1">

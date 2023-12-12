@@ -21,6 +21,9 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { IoPersonSharp } from "react-icons/io5";
 import { Button } from './ui/button';
+import { logIn, logOut } from '@/redux/features/auth-slice'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
 
 
 const formSchema = z.object({
@@ -34,6 +37,7 @@ const formSchema = z.object({
 const LoginForm = () => {
     const { toast } = useToast()
     const router= useRouter()
+    const dispatcher = useDispatch<AppDispatch>()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -61,13 +65,14 @@ const LoginForm = () => {
             title: `Welcome ${username}`,
             description: "Successfully logged in",
           })
-          
+          dispatcher(logIn())
         }else{
           toast({
             variant: "destructive",
             title: `${res.status} Login failed`,
             description: "Incorrect username or password",
           })
+          dispatcher(logOut())
         }
     }
 

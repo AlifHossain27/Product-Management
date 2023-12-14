@@ -6,9 +6,8 @@ class ProductSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     product_name = serializers.CharField()
     price = serializers.IntegerField()
-    in_stock = serializers.CharField()
-    amount_in_stock = serializers.IntegerField()
-    created_at = serializers.DateTimeField(read_only=True)
+    status = serializers.CharField()
+    amount = serializers.IntegerField()
     user_id = user_serializer.UserSerializer(read_only=True)
 
     def to_internal_value(self, data):

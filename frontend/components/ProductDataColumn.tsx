@@ -6,7 +6,8 @@ import { LiaEditSolid } from "react-icons/lia";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 export type Products = {
-  productName: string,
+  id: number,
+  product_name: string,
   price: number,
   status:  "In Stock" | "Stock Out",
   amount: number
@@ -14,7 +15,7 @@ export type Products = {
  
 export const columns: ColumnDef<Products>[] = [
   {
-    accessorKey: "productName",
+    accessorKey: "product_name",
     header: "Product Name",
   },
   {

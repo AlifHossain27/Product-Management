@@ -31,7 +31,7 @@ import { Button } from './ui/button'
 
 
 const formSchema = z.object({
-    productName: z.string(),
+    product_name: z.string(),
     price: z.coerce.number(),
     inStock: z.enum(['In Stock','Stock Out']),
     amount: z.coerce.number().optional(),
@@ -43,7 +43,7 @@ const ProductDataForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          productName: "",
+          product_name: "",
           price: 0,
           inStock: 'Stock Out',
           amount: 0,
@@ -53,7 +53,7 @@ const ProductDataForm = () => {
     const status = form.watch('inStock')
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const productName = values.productName
+        const product_name = values.product_name
         const price = values.price
         const inStock = values.inStock
         const amount = values.amount
@@ -63,10 +63,10 @@ const ProductDataForm = () => {
           headers: {'Content-Type':'application/json'},
           credentials: 'include',
           body: JSON.stringify({
-            "product_name": productName,
+            "product_name": product_name,
             "price": price,
-            "in_stock": inStock,
-            "amount_in_stock": amount
+            "status": inStock,
+            "amount": amount
           })
         });
         if (res.ok){
@@ -95,7 +95,7 @@ const ProductDataForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
             control={form.control}
-            name="productName"
+            name="product_name"
             render={({ field }) => (
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Product :</FormLabel>

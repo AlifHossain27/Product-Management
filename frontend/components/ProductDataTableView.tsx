@@ -1,13 +1,16 @@
+import { cookies } from "next/headers"
 import { Products, columns } from "./ProductDataColumn"
 import { DataTable } from "./ProductDataTable"
 import React from 'react'
 
 
 async function getData(): Promise<Products[]> {
-  // Fetch data from your API here.
-  return [
-
-  ]
+  const resp = await fetch("http://localhost:8000/api/product/", {
+    headers: { Cookie: cookies().toString() },
+  });
+  const data = resp.json()
+  
+  return data
 }
 
 export default async function ProductDataTableView() {
@@ -15,7 +18,7 @@ export default async function ProductDataTableView() {
   return (
     <div className='w-auto col-span-2 overflow-auto relative'>
       <DataTable columns={columns} data={data} />
-      </div>
+    </div>
   )
 }
 

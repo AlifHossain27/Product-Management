@@ -1,96 +1,15 @@
 import React from 'react'
+import { cookies } from "next/headers"
 import {  Customers,columns } from "./CustomerDataColumn"
 import { DataTable } from "./CustomerDataTable"
 
 
 async function getData(): Promise<Customers[]> {
-  return [
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-    {
-      customerName: "Alif",
-      email: "alif@",
-      phone: 8801753405699,
-      address: "home sweet home",
-    },
-
-  ]
+  const resp = await fetch("http://localhost:8000/api/customer/", {
+    headers: { Cookie: cookies().toString() },
+  });
+  const data = resp.json()
+  return data
 }
 
 

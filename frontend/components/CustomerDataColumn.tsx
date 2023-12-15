@@ -7,7 +7,8 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 
 
 export type Customers = {
-    customerName: string,
+    id: number,
+    customer_name: string,
     email: string,
     phone:  number,
     address: string,
@@ -15,7 +16,7 @@ export type Customers = {
 
 export const columns: ColumnDef<Customers>[] = [
     {
-        accessorKey: "customerName",
+        accessorKey: "customer_name",
         header: ({ column }) => {
             return (
               <Button

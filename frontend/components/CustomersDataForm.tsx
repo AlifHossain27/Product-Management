@@ -2,6 +2,8 @@
 import React from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from 'next/navigation';
 import * as z from "zod"
 import {
     Card,
@@ -21,26 +23,56 @@ import { Input } from "@/components/ui/input"
 import { Button } from './ui/button'
 
 const formSchema = z.object({
-    customerName: z.string(),
+    customer_name: z.string(),
     email: z.string().optional(),
-    phoneNumber: z.coerce.number(),
+    phone: z.coerce.number(),
     address: z.string().optional()
 })
 
 const CustomersDataForm = () => {
-
+    const router = useRouter();
+    const { toast } = useToast()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          customerName: '',
+          customer_name: '',
           email: '',
-          phoneNumber: 880,
+          phone: 0,
           address: ''
         },
       })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const customer_name = values.customer_name
+        const email = values.email
+        const phone = values.phone
+        const address = values.address
+
+        const res = await fetch('http://localhost:8000/api/customer/',{
+        method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          credentials: 'include',
+          body: JSON.stringify({
+            "customer_name": customer_name,
+            "email": email,
+            "phone": phone,
+            "address": address
+        })
+        });
+        if (res.ok){
+            toast({
+                title: "New Product Added",
+                description: "Successfully added a new Customer",
+              })
+        }else{
+            toast({
+                variant: "destructive",
+                title: `${res.status} oops`,
+                description: "Something went wrong. Please Try again",
+              })
+        }
+        await router.refresh()
+        await form.reset();
     }
 
   return (
@@ -54,7 +86,7 @@ const CustomersDataForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
             control={form.control}
-            name="customerName"
+            name="customer_name"
             render={({ field }) => (
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Customer:</FormLabel>
@@ -80,7 +112,7 @@ const CustomersDataForm = () => {
             />
             <FormField
             control={form.control}
-            name="phoneNumber"
+            name="phone"
             render={({ field }) => (
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Phone :</FormLabel>

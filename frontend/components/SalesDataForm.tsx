@@ -28,7 +28,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from './ui/button'
 
 const formSchema = z.object({
-    customerName: z.string(),
+    customer_name: z.string(),
     totalAmount: z.coerce.number(),
     pending: z.enum(['pending','settled']),
     pendingAmount: z.coerce.number().optional(),
@@ -41,7 +41,7 @@ const SalesDataForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          customerName: '',
+          customer_name: '',
           totalAmount: 0,
           pending: 'settled',
           pendingAmount: 0
@@ -64,7 +64,7 @@ const SalesDataForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
             control={form.control}
-            name="customerName"
+            name="customer_name"
             render={({ field }) => (
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Customer:</FormLabel>

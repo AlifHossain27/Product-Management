@@ -6,7 +6,7 @@ import { LiaEditSolid } from "react-icons/lia";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 export type Sales = {
-    customerName: string,
+    customer_name: string,
     total: number,
     status:  "Pending" | "Settled",
     pending: number
@@ -14,7 +14,7 @@ export type Sales = {
 
 export const columns: ColumnDef<Sales>[] = [
     {
-      accessorKey: "customerName",
+      accessorKey: "customer_name",
       header: "Customer",
     },
     {

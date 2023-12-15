@@ -57,9 +57,9 @@ interface DataTableProps<TData, TValue> {
           <div className="flex items-center py-4">
             <Input
               placeholder="Filter Customers..."
-              value={(table.getColumn("customerName")?.getFilterValue() as string) ?? ""}
+              value={(table.getColumn("customer_name")?.getFilterValue() as string) ?? ""}
               onChange={(event) =>
-                table.getColumn("customerName")?.setFilterValue(event.target.value)
+                table.getColumn("customer_name")?.setFilterValue(event.target.value)
               }
               className="w-auto"
             />

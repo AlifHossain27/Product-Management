@@ -82,6 +82,7 @@ const ProductDataForm = () => {
               })
         }
         await router.refresh()
+        await form.reset();
     }
 
   return (

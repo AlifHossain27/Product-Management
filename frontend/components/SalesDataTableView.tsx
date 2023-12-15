@@ -5,43 +5,43 @@ import { DataTable } from "./SalesDataTable"
 async function getData(): Promise<Sales[]> {
   return [
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,
     },
     {
-      customerName: "Alif",
+      customer_name: "Alif",
       total: 100,
       status: 'Pending',
       pending: 100,

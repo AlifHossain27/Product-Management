@@ -12,6 +12,15 @@ export type Products = {
   status:  "In Stock" | "Stock Out",
   amount: number
 }
+
+const deleteProduct = async(product:any) =>{
+  const id = product.id
+  const res = await fetch(`http://localhost:8000/api/product/${id}`,{
+    method: "DELETE",
+    credentials: "include"
+  })
+  window.location.reload()
+}
  
 export const columns: ColumnDef<Products>[] = [
   {
@@ -53,11 +62,11 @@ export const columns: ColumnDef<Products>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const products = row.original
+      const product = row.original
       return (
         <div>
         <Button variant='ghost' size='sm' ><LiaEditSolid size='20' /></Button>
-        <Button variant='ghost' size='sm' ><RiDeleteBin5Line size='20' /></Button>
+        <Button variant='ghost' size='sm' onClick={() => deleteProduct(product)}><RiDeleteBin5Line size='20' /></Button>
         </div>
       )
     },

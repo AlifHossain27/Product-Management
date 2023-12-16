@@ -61,7 +61,7 @@ const CustomersDataForm = () => {
         });
         if (res.ok){
             toast({
-                title: "New Product Added",
+                title: "New Customer Added",
                 description: "Successfully added a new Customer",
               })
             await form.reset();
@@ -105,7 +105,7 @@ const CustomersDataForm = () => {
                 <FormItem className='flex'>
                 <FormLabel className='w-40 text-lg pt-5'>Email :</FormLabel>
                 <FormControl>
-                    <Input autoComplete='off' placeholder="Email" {...field} />
+                    <Input autoComplete='off' type="email" placeholder="Email" {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>

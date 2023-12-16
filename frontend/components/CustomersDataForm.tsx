@@ -64,6 +64,8 @@ const CustomersDataForm = () => {
                 title: "New Product Added",
                 description: "Successfully added a new Customer",
               })
+            await form.reset();
+            await router.refresh();
         }else{
             toast({
                 variant: "destructive",
@@ -71,8 +73,7 @@ const CustomersDataForm = () => {
                 description: "Something went wrong. Please Try again",
               })
         }
-        await router.refresh()
-        await form.reset();
+        
     }
 
   return (

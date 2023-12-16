@@ -14,6 +14,15 @@ export type Customers = {
     address: string,
 }
 
+const deleteCustomer = async(customer:any) =>{
+  const id = customer.id
+  const res = await fetch(`http://localhost:8000/api/customer/${id}`,{
+    method: "DELETE",
+    credentials: "include"
+  })
+  window.location.reload()
+}
+
 export const columns: ColumnDef<Customers>[] = [
     {
         accessorKey: "customer_name",
@@ -44,11 +53,11 @@ export const columns: ColumnDef<Customers>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-          const customers = row.original
+          const customer = row.original
           return (
             <div>
             <Button variant='ghost' size='sm' ><LiaEditSolid size='20' /></Button>
-            <Button variant='ghost' size='sm' ><RiDeleteBin5Line size='20' /></Button>
+            <Button variant='ghost' size='sm' onClick={() => deleteCustomer(customer)}><RiDeleteBin5Line size='20' /></Button>
             </div>
           )
         },

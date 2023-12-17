@@ -32,7 +32,7 @@ import { Button } from './ui/button'
 const formSchema = z.object({
     customer_name: z.string(),
     totalAmount: z.coerce.number(),
-    pending: z.enum(['pending','settled']),
+    pending: z.enum(['Pending','Settled']),
     pendingAmount: z.coerce.number().optional(),
 })
 
@@ -46,7 +46,7 @@ const SalesDataForm = () => {
         defaultValues: {
           customer_name: '',
           totalAmount: 0,
-          pending: 'settled',
+          pending: 'Settled',
           pendingAmount: 0
         },
       })
@@ -133,15 +133,15 @@ const SalesDataForm = () => {
                 </SelectTrigger>
                 </FormControl>
                 <SelectContent className='rounded-none'>
-                    <SelectItem className='rounded-none' value='pending'>Pending</SelectItem>
-                    <SelectItem className='rounded-none' value="settled">Settled</SelectItem>
+                    <SelectItem className='rounded-none' value="Pending">Pending</SelectItem>
+                    <SelectItem className='rounded-none' value="Settled">Settled</SelectItem>
                 </SelectContent>
                 </Select>
                 <FormMessage />
                 </FormItem>
             )}
             />
-            {status === 'pending' &&
+            {status === 'Pending' &&
             <FormField
             control={form.control}
             name="pendingAmount"

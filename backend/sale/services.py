@@ -17,6 +17,7 @@ class SaleDataClass:
     status: str
     pending: int
     created_at: datetime.datetime = None
+    user: user_service.UserDataClass = None
     id: int = None
 
     @classmethod

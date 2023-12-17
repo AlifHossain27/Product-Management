@@ -6,10 +6,12 @@ import { LiaEditSolid } from "react-icons/lia";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 export type Sales = {
+    id: number,
     customer_name: string,
     total: number,
     status:  "Pending" | "Settled",
-    pending: number
+    pending: number,
+    created_at: string
 }
 
 export const columns: ColumnDef<Sales>[] = [

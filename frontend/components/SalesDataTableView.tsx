@@ -1,52 +1,14 @@
 import React from 'react'
+import { cookies } from "next/headers"
 import {  Sales,columns } from "./SalesDataColumn"
 import { DataTable } from "./SalesDataTable"
 
 async function getData(): Promise<Sales[]> {
-  return [
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-    {
-      customer_name: "Alif",
-      total: 100,
-      status: 'Pending',
-      pending: 100,
-    },
-  ]
+  const resp = await fetch("http://localhost:8000/api/sale/", {
+    headers: { Cookie: cookies().toString() },
+  });
+  const data = resp.json()
+  return data
 }
 
 export default async function SalesDataTableView() {

@@ -37,17 +37,17 @@ def create_product(user, product: "ProductDataClass") -> "ProductDataClass":
         amount = product.amount,
         user = user
     )
-    return ProductDataClass.from_instance(product_model= product_create)
+    return ProductDataClass.from_instance(product_model = product_create)
 
 def get_user_products(user: "User") -> list["ProductDataClass"]:
-    user_products = Product.objects.filter(user=user)
+    user_products = Product.objects.filter(user = user)
 
     return [ProductDataClass.from_instance(product) for product in user_products]
 
 def get_user_product_detail(product_id: int) -> "ProductDataClass":
     product = get_object_or_404(Product, pk=product_id)
 
-    return ProductDataClass.from_instance(product_model= product)
+    return ProductDataClass.from_instance(product_model = product)
 
 def update_user_product(user: "User", product_id: int, product_data: "ProductDataClass"):
     product = get_object_or_404(Product, pk=product_id)

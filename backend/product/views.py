@@ -16,7 +16,7 @@ class ProductCreateListAPI(views.APIView):
         
         return response.Response(data = serializer.data)
 
-    # Retrives a list of products
+    # Retrieves a list of products
     def get(self, request):
         product_collection = services.get_user_products(user = request.user)
         serializer = ProductSerializer(product_collection, many = True)
@@ -29,22 +29,22 @@ class ProductRetrieveUpdateDeleteAPI(views.APIView):
 
     # Retrieves a specific product
     def get(self, request, product_id):
-        product = services.get_user_product_detail(product_id=product_id)
+        product = services.get_user_product_detail(product_id = product_id)
         serializer = ProductSerializer(product)
         
         return response.Response(data=serializer.data)
     
     # Deletes a specific product
     def delete(self, request, product_id):
-        services.delete_user_product(user = request.user, product_id=product_id)
+        services.delete_user_product(user = request.user, product_id = product_id)
         
-        return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status = status.HTTP_204_NO_CONTENT)
 
     # Updates a specific product
     def put(self, request, product_id):
-        serializer = ProductSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        serializer = ProductSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
         product = serializer.validated_data
-        serializer.instance = services.update_user_product(user = request.user, product_id=product_id, product_data = product)
+        serializer.instance = services.update_user_product(user = request.user, product_id = product_id, product_data = product)
 
         return response.Response(data = serializer.data)

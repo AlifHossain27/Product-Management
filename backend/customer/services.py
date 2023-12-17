@@ -39,11 +39,11 @@ def create_customer(user, customer: "CustomerDataClass") -> "CustomerDataClass":
         address = customer.address,
         user = user
     )
-    return CustomerDataClass.from_instance(customer_model= customer_create)
+    return CustomerDataClass.from_instance(customer_model = customer_create)
 
 
 def get_user_customer(user: "User") -> list["CustomerDataClass"]:
-    user_customer = Customer.objects.filter(user=user)
+    user_customer = Customer.objects.filter(user = user)
 
     return [CustomerDataClass.from_instance(customer) for customer in user_customer]
 
@@ -51,7 +51,7 @@ def get_user_customer(user: "User") -> list["CustomerDataClass"]:
 def get_user_customer_detail(customer_id: int) -> "CustomerDataClass":
     customer = get_object_or_404(Customer,pk=customer_id)
 
-    return CustomerDataClass.from_instance(customer_model= customer)
+    return CustomerDataClass.from_instance(customer_model = customer)
 
 
 def update_user_customer(user: "User", customer_id: int, customer_data: "CustomerDataClass"):
@@ -63,7 +63,7 @@ def update_user_customer(user: "User", customer_id: int, customer_data: "Custome
     customer.phone = customer_data.phone
     customer.address = customer_data.address
     customer.save()
-    return CustomerDataClass.from_instance(customer_model= customer)
+    return CustomerDataClass.from_instance(customer_model = customer)
 
 
 def delete_user_customer(user: "User", customer_id: int) -> "CustomerDataClass":

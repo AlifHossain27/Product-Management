@@ -2,6 +2,8 @@
 import React from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from 'next/navigation';
 import * as z from "zod"
 import {
     Card,
@@ -37,7 +39,8 @@ const formSchema = z.object({
 
 
 const SalesDataForm = () => {
-
+    const router = useRouter();
+    const { toast } = useToast()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,8 +52,37 @@ const SalesDataForm = () => {
       })
     
     const status = form.watch('pending')
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const customer_name = values.customer_name
+        const total = values.totalAmount
+        const status = values.pending
+        const pending = values.pendingAmount
+
+        const res = await fetch("http://localhost:8000/api/sale/",{
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          credentials: 'include',
+          body: JSON.stringify({
+            "customer_name": customer_name,
+            "total": total,
+            "status": status,
+            "pending": pending
+          })
+        });
+        if (res.ok){
+            toast({
+                title: "New Sale Added",
+                description: "Successfully added a new Sale",
+              })
+              await router.refresh()
+              await form.reset();
+        }else{
+            toast({
+                variant: "destructive",
+                title: `${res.status} oops`,
+                description: "Something went wrong. Please Try again",
+              })
+        }
     }
 
   return (

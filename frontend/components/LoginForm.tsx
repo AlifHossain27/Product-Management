@@ -66,6 +66,7 @@ const LoginForm = () => {
             description: "Successfully logged in",
           })
           dispatcher(logIn())
+          await router.refresh()
         }else{
           toast({
             variant: "destructive",
@@ -73,6 +74,7 @@ const LoginForm = () => {
             description: "Incorrect username or password",
           })
           dispatcher(logOut())
+          await router.refresh()
         }
     }
 

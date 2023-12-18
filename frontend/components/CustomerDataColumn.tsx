@@ -2,8 +2,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
-import { LiaEditSolid } from "react-icons/lia";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import CustomerDataEdit from "./CustomerDataEdit";
+import CustomerDataDelete from "./CustomerDataDelete";
 
 
 export type Customers = {
@@ -12,15 +12,6 @@ export type Customers = {
     email: string,
     phone:  number,
     address: string,
-}
-
-const deleteCustomer = async(customer:any) =>{
-  const id = customer.id
-  const res = await fetch(`http://localhost:8000/api/customer/${id}`,{
-    method: "DELETE",
-    credentials: "include"
-  })
-  window.location.reload()
 }
 
 export const columns: ColumnDef<Customers>[] = [
@@ -56,8 +47,8 @@ export const columns: ColumnDef<Customers>[] = [
           const customer = row.original
           return (
             <div>
-            <Button variant='ghost' size='sm' ><LiaEditSolid size='20' /></Button>
-            <Button variant='ghost' size='sm' onClick={() => deleteCustomer(customer)}><RiDeleteBin5Line size='20' /></Button>
+            <CustomerDataEdit id = {customer.id} name ={customer.customer_name} email = {customer.email} phone = {customer.phone} address = {customer.address}/>
+            <CustomerDataDelete id = {customer.id} name = {customer.customer_name}/>
             </div>
           )
         },

@@ -2,8 +2,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
-import { LiaEditSolid } from "react-icons/lia";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import ProductDataEdit from "./ProductDataEdit"
+import ProductDataDelete from "./ProductDataDelete";
 
 export type Products = {
   id: number,
@@ -11,15 +11,6 @@ export type Products = {
   price: number,
   status:  "In Stock" | "Stock Out",
   amount: number
-}
-
-const deleteProduct = async(product:any) =>{
-  const id = product.id
-  const res = await fetch(`http://localhost:8000/api/product/${id}`,{
-    method: "DELETE",
-    credentials: "include"
-  })
-  window.location.reload()
 }
  
 export const columns: ColumnDef<Products>[] = [
@@ -65,8 +56,8 @@ export const columns: ColumnDef<Products>[] = [
       const product = row.original
       return (
         <div>
-        <Button variant='ghost' size='sm' ><LiaEditSolid size='20' /></Button>
-        <Button variant='ghost' size='sm' onClick={() => deleteProduct(product)}><RiDeleteBin5Line size='20' /></Button>
+        <ProductDataEdit id = {product.id} name = {product.product_name} price = {product.price} status = {product.status} amount = {product.amount}/>
+        <ProductDataDelete id ={product.id} name = {product.product_name} />
         </div>
       )
     },

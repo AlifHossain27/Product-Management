@@ -86,8 +86,8 @@ const ProductDataEdit = ({id, name, price, status, amount}: ProductProps) => {
       });
       if (res.ok){
           toast({
-              title: "New Product Added",
-              description: "Successfully added a new Product",
+              title: "Product Updated",
+              description: "Successfully Updated The Product",
             })
             await router.refresh();
       }else{

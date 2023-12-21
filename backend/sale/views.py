@@ -43,7 +43,7 @@ class SaleRetrieveUpdateDeleteAPI(views.APIView):
     # Updates a specific Sale
     def put(self, request, sale_id):
         serializer = SaleSerializer(data = request.data)
-        serializer.is_valid
+        serializer.is_valid(raise_exception = True)
         sale = serializer.validated_data
         serializer.instance = services. update_user_sale(user = request.user, sale_id = sale_id, sale_data = sale)
 

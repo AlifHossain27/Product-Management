@@ -4,7 +4,6 @@ import {
     DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogFooter,
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
@@ -12,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { RiDeleteBin5Line } from "react-icons/ri"
 import { useRouter } from 'next/navigation'
 import { useToast } from "@/components/ui/use-toast"
+import { DialogClose } from "@radix-ui/react-dialog"
 
 type CustomerProps = {
     id: number,
@@ -55,9 +55,9 @@ const CustomerDataDelete = ({id, name}: CustomerProps) => {
             Customer Name: {customer_name}
         </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogClose asChild>
           <Button variant= "destructive" onClick={() => deleteCustomer()}>Proceed</Button>
-        </DialogFooter>
+        </DialogClose>
     </DialogContent>
     </Dialog>
   )

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useToast } from "@/components/ui/use-toast"
@@ -28,6 +28,11 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from './ui/button'
+import AddProduct from './AddProduct'
+import { AppDispatch } from '@/redux/store'
+import { useDispatch } from 'react-redux'
+import { resetList } from "@/redux/features/product-slice"
+import { useAppSelector } from '@/redux/store';
 
 const formSchema = z.object({
     customer_name: z.string(),
@@ -37,8 +42,10 @@ const formSchema = z.object({
 })
 
 
-
 const SalesDataForm = () => {
+    const productList = useAppSelector((state) => state.productsReducer.value.productList)
+    const dispatch = useDispatch<AppDispatch>()
+    const [refreshTable, setRefreshTable] = useState<boolean>(false);
     const router = useRouter();
     const { toast } = useToast()
     const form = useForm<z.infer<typeof formSchema>>({
@@ -70,12 +77,15 @@ const SalesDataForm = () => {
           })
         });
         if (res.ok){
+            console.log(productList)
             toast({
                 title: "New Sale Added",
                 description: "Successfully added a new Sale",
               })
               await router.refresh()
               await form.reset();
+              dispatch(resetList())
+              setRefreshTable(true);
         }else{
             toast({
                 variant: "destructive",
@@ -107,6 +117,12 @@ const SalesDataForm = () => {
                 </FormItem>
             )}
             />
+
+            <div className='flex pt-5 gap-5 text-lg font-medium'>
+                <h1 className='pt-2'>Products: </h1> <AddProduct refreshTable={refreshTable} onRefresh={() => setRefreshTable(false)}/>
+            </div>
+
+
             <FormField
             control={form.control}
             name="totalAmount"

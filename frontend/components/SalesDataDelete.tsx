@@ -4,7 +4,6 @@ import {
     DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogFooter,
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
@@ -12,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { RiDeleteBin5Line } from "react-icons/ri"
 import { useRouter } from 'next/navigation'
 import { useToast } from "@/components/ui/use-toast"
+import { DialogClose } from "@radix-ui/react-dialog"
 
 type SalesProps = {
     id: number,
@@ -24,7 +24,7 @@ const SalesDataDelete = ({id, name}: SalesProps) => {
     const sales_id = id
     const sales_name = name
     const deleteSale = async() =>{
-        const res = await fetch(`http://localhost:8000/api/product/${sales_id}`,{
+        const res = await fetch(`http://localhost:8000/api/sale/${sales_id}`,{
           method: "DELETE",
           credentials: "include"
         })
@@ -55,9 +55,9 @@ const SalesDataDelete = ({id, name}: SalesProps) => {
             Customer Name: {sales_name}
         </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogClose asChild>
           <Button variant= "destructive" onClick={() => deleteSale()}>Proceed</Button>
-        </DialogFooter>
+        </DialogClose>
     </DialogContent>
     </Dialog>
   )

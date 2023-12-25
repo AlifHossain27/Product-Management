@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 @dataclasses.dataclass
 class SaleDataClass:
     customer_name: str
+    products: dict
     total: int
     status: str
     pending: int
@@ -24,10 +25,11 @@ class SaleDataClass:
     def from_instance(cls, sale_model: "Sale"):
         return cls(
             customer_name = sale_model.customer_name,
+            products = sale_model.products,
             total = sale_model.total,
             status = sale_model.status,
             pending = sale_model.pending,
-            created_at = sale_model.created_at,
+            created_at = sale_model.created_at.strftime("%d/%m/%Y"),
             id = sale_model.id,
             user = sale_model.user
         )
@@ -36,6 +38,7 @@ class SaleDataClass:
 def create_sale(user, sale: "SaleDataClass") -> "SaleDataClass":
     sale_create = Sale.objects.create(
         customer_name = sale.customer_name,
+        products = sale.products,
         total = sale.total,
         status = sale.status,
         pending = sale.pending,
@@ -59,6 +62,7 @@ def update_user_sale(user: "User", sale_id: int, sale_data: "SaleDataClass"):
     if sale.user.id != user.id:
         raise exceptions.PermissionDenied("You're not the owner of this sale")
     sale.customer_name = sale_data.customer_name
+    sale.products = sale_data.products
     sale.total = sale_data.total
     sale.status = sale_data.status
     sale.pending = sale_data.pending

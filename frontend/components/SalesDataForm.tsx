@@ -71,6 +71,9 @@ const SalesDataForm = () => {
           credentials: 'include',
           body: JSON.stringify({
             "customer_name": customer_name,
+            "products": {
+                "data": productList
+            },
             "total": total,
             "status": status,
             "pending": pending

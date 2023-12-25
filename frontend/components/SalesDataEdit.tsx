@@ -31,9 +31,19 @@ import { Button } from "@/components/ui/button"
 import { LiaEditSolid } from "react-icons/lia";
 import { DialogClose } from "@radix-ui/react-dialog"
 
+
+interface Product {
+  amount: number;
+  quantity: number;
+  product_name: string;
+}
+
 type SalesProps = {
     id: number,
     name: string,
+    products:{
+      data: Product[];
+  };
     total: number,
     status:  string,
     pending: number,
@@ -46,11 +56,12 @@ const formSchema = z.object({
   pendingAmount: z.coerce.number().optional(),
 })
 
-const SalesDataEdit = ({id, name, total, status, pending}: SalesProps) => {
+const SalesDataEdit = ({id, name, products, total, status, pending}: SalesProps) => {
     const router = useRouter();
     const { toast } = useToast()
     const sale_id = id
     const default_sale_name = name
+    const default_products = products
     const default_sale_total = total
     const default_sale_status = status
     const default_sale_pending = pending
@@ -78,6 +89,7 @@ const SalesDataEdit = ({id, name, total, status, pending}: SalesProps) => {
         credentials: 'include',
         body: JSON.stringify({
           "customer_name": customer_name,
+          "products": default_products,
           "total": total,
           "status": status,
           "pending": pending

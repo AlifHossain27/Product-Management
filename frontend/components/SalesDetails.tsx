@@ -29,11 +29,9 @@ type DetailProps = {
 
 const SalesDetails = ({ id, name, products, total, status, amount}: DetailProps) => {
     const customer_name = name
-    const productList = products
     const totalAmount = total
     const pending = status
     const pendingAmount = amount
-    console.log(productList)
   return (
     <Dialog>
     <DialogTrigger asChild>
@@ -43,7 +41,7 @@ const SalesDetails = ({ id, name, products, total, status, amount}: DetailProps)
     </DialogTrigger>
     <DialogContent>
         <DialogHeader>
-        <DialogTitle>Sale Details: </DialogTitle>
+        <DialogTitle className="border-b-2">Sale Details: </DialogTitle>
         </DialogHeader>
     
     <div>

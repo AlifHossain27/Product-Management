@@ -21,6 +21,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form"
 import { Button } from './ui/button'
+import { RiDeleteBin5Line } from "react-icons/ri"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { addList } from "@/redux/features/product-slice"
@@ -63,6 +64,12 @@ const AddProduct = ({ refreshTable, onRefresh }: AddProductProps) => {
         setDataArray((prevData) => [...prevData, jsonData]);
     };
 
+    const removeProduct = (index: number) => {
+        const updatedArray = [...dataArray];
+        updatedArray.splice(index, 1);
+        setDataArray(updatedArray);
+      };
+
     useEffect(() => {
         if (refreshTable) {
           setDataArray([]);
@@ -89,7 +96,7 @@ const AddProduct = ({ refreshTable, onRefresh }: AddProductProps) => {
         <DialogTitle className="border-b-2">Products List</DialogTitle>
         </DialogHeader>
         <div>
-            <div className="border-2 rounded-sm">
+            <div className="border rounded-sm">
             <ScrollArea className="h-[200px]">
             <table className="w-full text-center">
                 <thead className="border-b-2">
@@ -106,6 +113,15 @@ const AddProduct = ({ refreshTable, onRefresh }: AddProductProps) => {
                     <td>{product.product_name}</td>
                     <td>{product.quantity}</td>
                     <td>{product.amount}</td>
+                    <td>
+                        <Button
+                        variant="outline"
+                        onClick={() => removeProduct(index)}
+                        className="rounded-full px-3 py-1 border"
+                        >
+                        <RiDeleteBin5Line size='20' />
+                        </Button>
+                    </td>
                     </tr>
                 ))}
                 </tbody>

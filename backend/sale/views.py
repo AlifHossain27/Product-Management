@@ -54,7 +54,7 @@ class SaleRetrieveUpdateDeleteAPI(views.APIView):
         return response.Response(data = serializer.data)
 
 
-class SalesAmountRateAPI(views.APIView):
+class MonthlySalesRevenueRateAPI(views.APIView):
     def get(self, request):
         # Get total product sales for the current month
         current_month_start = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -84,7 +84,7 @@ class SalesAmountRateAPI(views.APIView):
         return response.Response(response_data, status=status.HTTP_200_OK)
     
 
-class SalesRateAPI(views.APIView):
+class MonthlySalesRateAPI(views.APIView):
     def get(self, request):
         # Calculate the start and end dates for the current and previous month
         today = timezone.now()
@@ -108,6 +108,62 @@ class SalesRateAPI(views.APIView):
             "increase_percentage": increase_percentage,
         }
 
+
+        return response.Response(response_data, status=status.HTTP_200_OK)
+
+
+class YearlySalesRevenueRateAPI(views.APIView):
+    def get(self, request):
+        # Get total product sales for the current year
+        current_year_start = timezone.now().replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+        current_year_sales = SaleModel.objects \
+            .filter(created_at__gte=current_year_start) \
+            .aggregate(total_sales=Sum('total'))['total_sales'] or 0
+
+        # Get total product sales for the previous year
+        previous_year_end = current_year_start - timezone.timedelta(days=1)
+        previous_year_start = (previous_year_end.replace(month=1, day=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        previous_year_sales = SaleModel.objects \
+            .filter(created_at__range=[previous_year_start, previous_year_end]) \
+            .aggregate(total_sales=Sum('total'))['total_sales'] or 0
+
+        # Calculate the percentage increase
+        if previous_year_sales == 0:
+            increase_percentage = 100  # Consider infinite increase if the previous year had no sales
+        else:
+            increase_percentage = ((current_year_sales - previous_year_sales) / previous_year_sales) * 100
+
+        response_data = {
+            "current_year_sales": current_year_sales,
+            "previous_year_sales": previous_year_sales,
+            "increase_percentage": increase_percentage
+        }
+
+        return response.Response(response_data, status=status.HTTP_200_OK)   
+
+class YearlySalesRateAPI(views.APIView):
+    def get(self, request):
+        # Calculate the start and end dates for the current and previous year
+        today = timezone.now()
+        current_year_start = today.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+        previous_year_end = current_year_start - timezone.timedelta(days=1)
+        previous_year_start = (previous_year_end.replace(month=1, day=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+
+        # Query the number of sales for the current and previous year
+        current_year_sales = SaleModel.objects.filter(created_at__gte=current_year_start).count()
+        previous_year_sales = SaleModel.objects.filter(created_at__range=[previous_year_start, previous_year_end]).count()
+
+        # Calculate the percentage increase
+        if previous_year_sales == 0:
+            increase_percentage = 100  # Consider infinite increase if the previous year had no sales
+        else:
+            increase_percentage = ((current_year_sales - previous_year_sales) / previous_year_sales) * 100
+
+        response_data = {
+            "current_year_sales": current_year_sales,
+            "previous_year_sales": previous_year_sales,
+            "increase_percentage": increase_percentage,
+        }
 
         return response.Response(response_data, status=status.HTTP_200_OK)
 

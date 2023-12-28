@@ -1,45 +1,16 @@
 import React from 'react'
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import YearlySaleStats from '@/components/YearlySaleStats'
 import MonthlySaleStats from '@/components/MonthlySaleStats'
+import MonthlySalesRevenueRate from '@/components/MonthlySalesRevenueRate'
+import MonthlySalesRate from '@/components/MonthlySalesRate'
 
 const DashboardPage = () => {
   return (
     <div className='flex-auto flex-col'>
       <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 justify-center items-center gap-5 w-auto px-5 py-24'>
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Sales This Month</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Amount This Month</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Sales This Year</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Amount This Year</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-        </Card>
+        <MonthlySalesRate/>
+        <MonthlySalesRevenueRate/>
       </div>
       <div className='grid lg:grid-cols-5 sm:grid-cols-2 gap-5 h-auto w-auto px-5 py-5'>
         <div className='w-auto h-auto col-span-3 overflow-auto relative border rounded-md'>

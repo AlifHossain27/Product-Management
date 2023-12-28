@@ -4,6 +4,8 @@ import YearlySaleStats from '@/components/YearlySaleStats'
 import MonthlySaleStats from '@/components/MonthlySaleStats'
 import MonthlySalesRevenueRate from '@/components/MonthlySalesRevenueRate'
 import MonthlySalesRate from '@/components/MonthlySalesRate'
+import YearlySalesRate from '@/components/YearlySalesRate'
+import YearlySalesRevenueRate from '@/components/YearlySalesRevenueRate'
 
 const DashboardPage = () => {
   return (
@@ -11,6 +13,8 @@ const DashboardPage = () => {
       <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 justify-center items-center gap-5 w-auto px-5 py-24'>
         <MonthlySalesRate/>
         <MonthlySalesRevenueRate/>
+        <YearlySalesRate/>
+        <YearlySalesRevenueRate/>
       </div>
       <div className='grid lg:grid-cols-5 sm:grid-cols-2 gap-5 h-auto w-auto px-5 py-5'>
         <div className='w-auto h-auto col-span-3 overflow-auto relative border rounded-md'>

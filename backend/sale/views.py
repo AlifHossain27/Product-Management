@@ -54,7 +54,7 @@ class SaleRetrieveUpdateDeleteAPI(views.APIView):
         return response.Response(data = serializer.data)
 
 
-class SalesRateAPI(views.APIView):
+class SalesAmountRateAPI(views.APIView):
     def get(self, request):
         # Get total product sales for the current month
         current_month_start = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -80,6 +80,34 @@ class SalesRateAPI(views.APIView):
             "previous_month_sales": previous_month_sales,
             "increase_percentage": increase_percentage
         }
+
+        return response.Response(response_data, status=status.HTTP_200_OK)
+    
+
+class SalesRateAPI(views.APIView):
+    def get(self, request):
+        # Calculate the start and end dates for the current and previous month
+        today = timezone.now()
+        current_month_start = today.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        previous_month_end = current_month_start - timezone.timedelta(days=1)
+        previous_month_start = (previous_month_end.replace(day=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+
+        # Query the number of sales for the current and previous month
+        current_month_sales = SaleModel.objects.filter(created_at__gte=current_month_start).count()
+        previous_month_sales = SaleModel.objects.filter(created_at__range=[previous_month_start, previous_month_end]).count()
+
+        # Calculate the percentage increase
+        if previous_month_sales == 0:
+            increase_percentage = 100  # Consider infinite increase if previous month had no sales
+        else:
+            increase_percentage = ((current_month_sales - previous_month_sales) / previous_month_sales) * 100
+
+        response_data = {
+            "current_month_sales": current_month_sales,
+            "previous_month_sales": previous_month_sales,
+            "increase_percentage": increase_percentage,
+        }
+
 
         return response.Response(response_data, status=status.HTTP_200_OK)
 

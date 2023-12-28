@@ -207,10 +207,7 @@ class MonthlySalesVisualizationAPI(views.APIView):
 
         chart_data = {
             "labels": month_labels,
-            "data": list(monthly_sales_dict.values()),
-            "title": "Monthly Sales",
-            "x_axis_label": "Month",
-            "y_axis_label": "Total Sales"
+            "data": list(monthly_sales_dict.values())
         }
 
         return response.Response(chart_data, status=status.HTTP_200_OK)
@@ -239,10 +236,7 @@ class YearlySalesVisualizationAPI(views.APIView):
 
         chart_data = {
             "labels": list(yearly_sales_dict.keys()),
-            "data": list(yearly_sales_dict.values()),
-            "title": "Yearly Sales",
-            "x_axis_label": "Year",
-            "y_axis_label": "Total Sales"
+            "data": list(yearly_sales_dict.values())
         }
 
         return response.Response(chart_data, status=status.HTTP_200_OK)

@@ -184,22 +184,65 @@ class TotalAmountYearAPI(views.APIView):
 
         return response.Response(response_data, status=status.HTTP_200_OK)
     
-class SalesVisualizationAPI(views.APIView):
+class MonthlySalesVisualizationAPI(views.APIView):
     def get(self, request):
-        # Get the monthly sales data
+        # Create a dictionary to store sales data for each month
+        monthly_sales_dict = {i: 0 for i in range(1, 13)}
+
+        # Get monthly sales data for the current year
         monthly_sales_data = SaleModel.objects \
             .filter(created_at__year=timezone.now().year) \
             .extra(select={'month': 'EXTRACT(month FROM created_at)'}) \
             .values('month') \
-            .annotate(total_sales=Sum('total'))
+            .annotate(total_sales=Sum('total')) \
+            .order_by('month')
+
+        # Populate the dictionary with the total sales for each month
+        for entry in monthly_sales_data:
+            month_num = int(entry['month'])
+            monthly_sales_dict[month_num] = entry['total_sales']
 
         # Convert numeric month values to month names
-        month_labels = [month_name[int(entry['month'])] for entry in monthly_sales_data]
-
+        month_labels = [month_name[i] for i in range(1, 13)]
 
         chart_data = {
             "labels": month_labels,
-            "data": [entry['total_sales'] for entry in monthly_sales_data]
+            "data": list(monthly_sales_dict.values()),
+            "title": "Monthly Sales",
+            "x_axis_label": "Month",
+            "y_axis_label": "Total Sales"
+        }
+
+        return response.Response(chart_data, status=status.HTTP_200_OK)
+    
+
+class YearlySalesVisualizationAPI(views.APIView):
+    def get(self, request, format=None):
+        # Get the range of years for the last 8 years
+        current_year = timezone.now().year
+        years_range = range(current_year - 7, current_year + 1)
+
+        # Create a dictionary to store sales data for each year
+        yearly_sales_dict = {year: 0 for year in years_range}
+
+        # Get yearly sales data for the last 8 years
+        yearly_sales_data = SaleModel.objects \
+            .filter(created_at__year__gte=current_year - 7, created_at__year__lte=current_year) \
+            .values('created_at__year') \
+            .annotate(total_sales=Sum('total')) \
+            .order_by('created_at__year')
+
+        # Populate the dictionary with the total sales for each year
+        for entry in yearly_sales_data:
+            year = entry['created_at__year']
+            yearly_sales_dict[year] = entry['total_sales']
+
+        chart_data = {
+            "labels": list(yearly_sales_dict.keys()),
+            "data": list(yearly_sales_dict.values()),
+            "title": "Yearly Sales",
+            "x_axis_label": "Year",
+            "y_axis_label": "Total Sales"
         }
 
         return response.Response(chart_data, status=status.HTTP_200_OK)

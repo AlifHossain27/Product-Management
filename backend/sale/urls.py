@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SaleCreateListAPI, SaleRetrieveUpdateDeleteAPI, SalesRateAPI, TotalSalesMonthAPI, TotalSalesYearAPI, TotalAmountMonthAPI, TotalAmountYearAPI, SalesVisualizationAPI, TopProductsMonthAPI, TopProductsYearAPI, MostSoldProductMonthAPI, MostSoldProductYearAPI
+from .views import SaleCreateListAPI, SaleRetrieveUpdateDeleteAPI, SalesRateAPI, TotalSalesMonthAPI, TotalSalesYearAPI, TotalAmountMonthAPI, TotalAmountYearAPI, MonthlySalesVisualizationAPI, YearlySalesVisualizationAPI, TopProductsMonthAPI, TopProductsYearAPI, MostSoldProductMonthAPI, MostSoldProductYearAPI
 
 urlpatterns = [
     path("sale/", SaleCreateListAPI.as_view(), name = "sale"),
@@ -9,7 +9,8 @@ urlpatterns = [
     path("sale/total-sale-year/", TotalSalesYearAPI.as_view(), name = "total_sale_year"),
     path("sale/total-amount-month/", TotalAmountMonthAPI.as_view(), name = "total-sale-month"),
     path("sale/total-amount-year/", TotalAmountYearAPI.as_view(), name = "total-sale-year"),
-    path("sale/sale-visualization/", SalesVisualizationAPI.as_view(), name = "sales-visualization"),
+    path("sale/sale-visualization-month/", MonthlySalesVisualizationAPI.as_view(), name = "sales-visualization"),
+    path("sale/sale-visualization-year/", YearlySalesVisualizationAPI.as_view(), name = "sales-visualization-week"),
     path("sale/top-products-month/", TopProductsMonthAPI.as_view(), name = "top-products-month"),
     path("sale/top-products-year/", TopProductsYearAPI.as_view(), name = "top-products-year"),
     path("sale/most-sold-product-month/", MostSoldProductMonthAPI.as_view(), name = "most-sold-product-month"),

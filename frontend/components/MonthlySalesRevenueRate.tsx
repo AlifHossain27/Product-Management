@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface SalesData {
     current_month_sales: number;
@@ -58,7 +59,11 @@ const MonthlySalesRevenueRate = () => {
               )}
             </div>
           ) : (
-            'Loading...'
+            <div className='p-6 pt-2 flex flex-col gap-3'>
+              <Skeleton className="w-[100px] h-[10px]" />
+              <Skeleton className="w-[200px] h-[10px]" />
+              <Skeleton className="w-[200px] h-[10px]" />
+            </div>
           )}
     </Card>
   );

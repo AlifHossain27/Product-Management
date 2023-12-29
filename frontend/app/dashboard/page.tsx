@@ -6,6 +6,8 @@ import MonthlySalesRevenueRate from '@/components/MonthlySalesRevenueRate'
 import MonthlySalesRate from '@/components/MonthlySalesRate'
 import YearlySalesRate from '@/components/YearlySalesRate'
 import YearlySalesRevenueRate from '@/components/YearlySalesRevenueRate'
+import MonthlyTopProducts from '@/components/MonthlyTopProducts'
+import YearlyTopProducts from '@/components/YearlyTopProducts'
 
 const DashboardPage = () => {
   return (
@@ -23,16 +25,27 @@ const DashboardPage = () => {
               <TabsTrigger value="monthly" className='w-full'>Monthly</TabsTrigger>
               <TabsTrigger value="yearly" className='w-full'>Yearly</TabsTrigger>
             </TabsList>
-            <TabsContent value="monthly">
+            <TabsContent value="monthly" className='px-5 py-5'>
               <MonthlySaleStats/>
             </TabsContent>
-            <TabsContent value="yearly">
+            <TabsContent value="yearly" className='px-5 py-5'>
               <YearlySaleStats/>
             </TabsContent>
           </Tabs>
         </div>
-        <div className='w-auto col-span-2 overflow-auto relative bg-gray-800'>
-          <h1>List</h1>
+        <div className='w-auto h-auto col-span-2 overflow-auto relative border rounded-md'>
+        <Tabs defaultValue="monthly" className="w-auto">
+            <TabsList className='w-full'>
+              <TabsTrigger value="monthly" className='w-full'>Monthly</TabsTrigger>
+              <TabsTrigger value="yearly" className='w-full'>Yearly</TabsTrigger>
+            </TabsList>
+            <TabsContent value="monthly" className='px-5 py-5'>
+                <MonthlyTopProducts/>
+            </TabsContent>
+            <TabsContent value="yearly" className='px-5 py-5'>
+                <YearlyTopProducts/>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

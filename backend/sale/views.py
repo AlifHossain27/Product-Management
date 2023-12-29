@@ -325,93 +325,75 @@ class YearlySalesVisualizationAPI(views.APIView):
 
         return response.Response(chart_data, status=status.HTTP_200_OK)
     
-class TopProductsMonthAPI(views.APIView):
+
+
+class MonthlyTopProductsAPI(views.APIView):
     def get(self, request):
-        # Get the top products sold in the current month
-        top_products_data = SaleModel.objects \
-            .filter(created_at__year=timezone.now().year, created_at__month=timezone.now().month) \
-            .values('products__data__product_name') \
-            .annotate(total_quantity=Sum('products__data__quantity')) \
-            .order_by('-total_quantity')[:10]  # Limit to the top 10 products
+        # Calculate the start date of the current month
+        current_month_start = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
+        # Filter sales for the current month
+        sales = SaleModel.objects.filter(created_at__gte=current_month_start)
 
-        table_data = {
-            "header": ["Product Name", "Total Quantity Sold"],
-            "rows": [
-                {"product_name": entry['products__data__product_name'], "total_quantity": entry['total_quantity']}
-                for entry in top_products_data
-            ]
+        # Extract the products data from each sale
+        products_data = []
+        for sale in sales:
+            products_data.extend(sale.products.get('data', []))
+
+        # Group products by name and calculate total quantity sold
+        product_quantities = {}
+        total_quantity_sold = 0
+        for product in products_data:
+            product_name = product.get('product_name')
+            quantity = product.get('quantity', 0)
+            total_quantity_sold += quantity
+            product_quantities[product_name] = product_quantities.get(product_name, 0) + quantity
+
+        # Sort the products based on total quantity sold in descending order
+        sorted_products = sorted(product_quantities.items(), key=lambda x: x[1], reverse=True)
+
+        # Extract the top five products
+        top_five_products = sorted_products[:8]
+
+        response_data = {
+            'total_quantity_sold': total_quantity_sold,
+            'top_products': [{'product_name': name, 'total_quantity': quantity} for name, quantity in top_five_products]
         }
-
-        return response.Response(table_data, status=status.HTTP_200_OK)
+        return response.Response(response_data)
     
 
-class TopProductsYearAPI(views.APIView):
-    def get(self, request):
-        # Get the top products sold in the current year
-        top_products_data = SaleModel.objects \
-            .filter(created_at__year=timezone.now().year) \
-            .values('products__data__product_name') \
-            .annotate(total_quantity=Sum('products__data__quantity')) \
-            .order_by('-total_quantity')[:10]  # Limit to the top 10 products
+class YearlyTopProductsAPI(views.APIView):
+    def get(self, request, format=None):
+        # Calculate the start date of the current year
+        current_year_start = timezone.now().replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
 
-        table_data = {
-            "header": ["Product Name", "Total Quantity Sold"],
-            "rows": [
-                {"product_name": entry['products__data__product_name'], "total_quantity": entry['total_quantity']}
-                for entry in top_products_data
-            ]
-        }
+        # Filter sales for the current year
+        sales = SaleModel.objects.filter(created_at__gte=current_year_start)
 
-        return response.Response(table_data, status=status.HTTP_200_OK)
-    
+        # Extract the products data from each sale
+        products_data = []
+        for sale in sales:
+            products_data.extend(sale.products.get('data', []))
 
-class MostSoldProductMonthAPI(views.APIView):
-    def get(self, request):
-        # Get the most sold product in the current month
-        most_sold_product_data = SaleModel.objects \
-            .filter(created_at__year=timezone.now().year, created_at__month=timezone.now().month) \
-            .values('products__data__product_name') \
-            .annotate(total_quantity=Sum('products__data__quantity')) \
-            .order_by('-total_quantity').first()
+        # Group products by name and calculate total quantity sold
+        product_quantities = {}
+        total_quantity_sold = 0
+        for product in products_data:
+            product_name = product.get('product_name')
+            quantity = product.get('quantity', 0)
+            total_quantity_sold += quantity
+            product_quantities[product_name] = product_quantities.get(product_name, 0) + quantity
 
-        if most_sold_product_data:
-            most_sold_product_name = most_sold_product_data['products__data__product_name']
-            total_quantity_sold = most_sold_product_data['total_quantity']
-        else:
-            most_sold_product_name = "No data available"
-            total_quantity_sold = 0
+        # Sort the products based on total quantity sold in descending order
+        sorted_products = sorted(product_quantities.items(), key=lambda x: x[1], reverse=True)
+
+        # Extract the top five products
+        top_five_products = sorted_products[:8]
 
 
         response_data = {
-            "most_sold_product": most_sold_product_name,
-            "total_quantity_sold": total_quantity_sold,
-            "title": "Most Sold Product This Month"
+            'total_quantity_sold': total_quantity_sold,
+            'top_products': [{'product_name': name, 'total_quantity': quantity} for name, quantity in top_five_products]
         }
 
-        return response.Response(response_data, status=status.HTTP_200_OK)
-    
-class MostSoldProductYearAPI(views.APIView):
-    def get(self, request):
-        # Get the most sold product in the current year
-        most_sold_product_data = SaleModel.objects \
-            .filter(created_at__year=timezone.now().year) \
-            .values('products__data__product_name') \
-            .annotate(total_quantity=Sum('products__data__quantity')) \
-            .order_by('-total_quantity').first()
-
-        if most_sold_product_data:
-            most_sold_product_name = most_sold_product_data['products__data__product_name']
-            total_quantity_sold = most_sold_product_data['total_quantity']
-        else:
-            most_sold_product_name = "No data available"
-            total_quantity_sold = 0
-
-
-        response_data = {
-            "most_sold_product": most_sold_product_name,
-            "total_quantity_sold": total_quantity_sold,
-            "title": "Most Sold Product This Year"
-        }
-
-        return response.Response(response_data, status=status.HTTP_200_OK)
+        return response.Response(response_data)

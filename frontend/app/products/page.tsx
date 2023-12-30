@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ProductDataForm from '@/components/ProductDataForm';
 import ProductDataTable from '@/components/ProductDataTableView';
+import CardSkeleton from '@/components/CardSkeleton';
+import TableSkeleton from '@/components/TableSkeleton';
 
 const ProductsPage= () => {
   return (
@@ -11,9 +13,17 @@ const ProductsPage= () => {
       </div>
       <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-5 h-5/6 w-auto px-1'> 
       <div className='flex justify-center items-center'>
-        <ProductDataForm/>
+        <Suspense fallback = {
+          <CardSkeleton/>
+        }>
+          <ProductDataForm/>
+        </Suspense>
       </div>
-        <ProductDataTable/>
+        <Suspense fallback = {
+          <TableSkeleton/>
+        }>
+          <ProductDataTable/>
+        </Suspense>
       </div>
 
     </div>

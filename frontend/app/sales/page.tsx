@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import SalesDataForm from '@/components/SalesDataForm';
 import SalesDataTableView from '@/components/SalesDataTableView';
+import CardSkeleton from '@/components/CardSkeleton';
+import TableSkeleton from '@/components/TableSkeleton';
 
 
 const SalesPage = () => {
@@ -11,9 +13,17 @@ const SalesPage = () => {
       </div>
       <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-5 h-5/6 w-auto px-1 py-1'>
       <div className='flex justify-center items-center'>
-        <SalesDataForm />
+        <Suspense fallback = {
+          <CardSkeleton/>
+        }>
+          <SalesDataForm />
+        </Suspense>
       </div>
-        <SalesDataTableView/>
+        <Suspense fallback = {
+          <TableSkeleton/>
+        }>
+          <SalesDataTableView/>
+        </Suspense>
       </div>
 
     </div>

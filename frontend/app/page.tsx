@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Button } from '../components/ui/button'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/redux/store'
@@ -59,7 +59,9 @@ export default function Home() {
   }
   return (
     <div className='flex-col flex-auto flex justify-center items-center'>
-      {dashboardBtn}
+      <Suspense fallback = "Loading">
+        {dashboardBtn}
+      </Suspense>
     </div>
   )
 }

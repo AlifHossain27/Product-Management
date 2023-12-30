@@ -81,7 +81,13 @@ const SalesDataEdit = ({id, name, products, total, status, pending}: SalesProps)
       const customer_name = values.customer_name
       const total = values.totalAmount
       const status = values.pending
-      const pending = values.pendingAmount
+      let pending
+      if (status === "Settled"){
+        pending = 0
+      }else{
+        pending = values.pendingAmount
+      }
+      
 
       const res = await fetch(`http://localhost:8000/api/sale/${sale_id}`,{
         method: 'PUT',

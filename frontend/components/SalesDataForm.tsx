@@ -63,7 +63,13 @@ const SalesDataForm = () => {
         const customer_name = values.customer_name
         const total = values.totalAmount
         const status = values.pending
-        const pending = values.pendingAmount
+        let pending
+        if (status === "Settled"){
+            pending = 0
+        } else {
+            pending = values.pendingAmount
+        }
+        
 
         const res = await fetch("http://localhost:8000/api/sale/",{
           method: 'POST',

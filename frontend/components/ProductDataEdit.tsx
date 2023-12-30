@@ -71,7 +71,12 @@ const ProductDataEdit = ({id, name, price, status, amount}: ProductProps) => {
       const product_name = values.product_name
       const price = values.price
       const inStock = values.inStock
-      const amount = values.amount
+      let amount
+      if (inStock === "Stock Out") {
+        amount = 0
+      } else {
+        amount = values.amount
+      }
 
       const res = await fetch(`http://localhost:8000/api/product/${product_id}`, {
         method: 'PUT',

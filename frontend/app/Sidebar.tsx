@@ -13,7 +13,7 @@ import { useToast } from "../components/ui/use-toast"
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/redux/store'
 import { useAppSelector } from '@/redux/store';
-import { logOut } from '@/redux/features/auth-slice'
+import { logIn, logOut } from '@/redux/features/auth-slice'
 
 const Sidebar = () => {
     const menus = [
@@ -30,6 +30,25 @@ const Sidebar = () => {
     const router = useRouter();
     const { toast } = useToast()
     let logoutBtn
+
+    useEffect(() => {
+      (
+        async () => {
+          try {
+          const resp = await fetch('http://localhost:8000/api/me/',{
+            credentials: 'include'
+          })
+          if (resp.ok){
+            dispatcher(logIn())
+          }else{
+            dispatcher(logOut())
+          }
+        } catch(e){
+          console.log('connection failed')
+        }
+        }
+      )()
+    })
 
     const logout = async() => {
       await fetch('http://localhost:8000/api/logout/',{

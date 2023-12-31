@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { downloadToExcelCustomer } from '@/lib/customer_xlsx'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -54,15 +55,18 @@ interface DataTableProps<TData, TValue> {
 
     return (
         <div>
-          <div className="flex items-center py-4">
+          <div className="flex items-center py-4 gap-4">
             <Input
               placeholder="Filter Customers..."
               value={(table.getColumn("customer_name")?.getFilterValue() as string) ?? ""}
               onChange={(event) =>
                 table.getColumn("customer_name")?.setFilterValue(event.target.value)
               }
-              className="w-auto"
+              className="w-36 md:w-auto"
             />
+            <Button className='rounded-none w-28' onClick={ () => downloadToExcelCustomer()}>
+              Export
+            </Button>
           </div>
         <div className="rounded-md border-2">
           <Table>

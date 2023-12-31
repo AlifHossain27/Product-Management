@@ -93,7 +93,7 @@ const ProductDataForm = () => {
   return (
         <Card className='col-span-1 pt-5 h-max w-auto border-2'>
         <CardHeader>
-            <CardTitle className='pt-5 text-3xl'>Products</CardTitle>
+            <CardTitle className='pt-5 text-3xl'>Add Product</CardTitle>
             
         </CardHeader>
         <CardContent>

@@ -9,6 +9,10 @@ import YearlySalesRevenueRate from '@/components/YearlySalesRevenueRate'
 import MonthlyTopProducts from '@/components/MonthlyTopProducts'
 import YearlyTopProducts from '@/components/YearlyTopProducts'
 
+export const metadata ={
+  title: "Dashboard"
+}
+
 const DashboardPage = () => {
   return (
     <div className='flex-auto flex-col'>

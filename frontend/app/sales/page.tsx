@@ -4,6 +4,9 @@ import SalesDataTableView from '@/components/SalesDataTableView';
 import CardSkeleton from '@/components/CardSkeleton';
 import TableSkeleton from '@/components/TableSkeleton';
 
+export const metadata ={
+  title: "Sales"
+}
 
 const SalesPage = () => {
   return (

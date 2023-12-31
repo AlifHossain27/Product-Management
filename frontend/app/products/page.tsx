@@ -4,6 +4,10 @@ import ProductDataTable from '@/components/ProductDataTableView';
 import CardSkeleton from '@/components/CardSkeleton';
 import TableSkeleton from '@/components/TableSkeleton';
 
+export const metadata ={
+  title: "Products"
+}
+
 const ProductsPage= () => {
   return (
     <div className='flex-auto flex-col'>

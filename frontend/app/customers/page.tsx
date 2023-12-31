@@ -4,6 +4,10 @@ import CustomersDataTableView from '@/components/CustomersDataTableView'
 import CardSkeleton from '@/components/CardSkeleton'
 import TableSkeleton from '@/components/TableSkeleton'
 
+export const metadata ={
+  title: "Customers"
+}
+
 const CustomersPage = () => {
   return (
     <div className='flex-auto flex-col'>

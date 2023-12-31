@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   ColumnDef,
   flexRender,
@@ -53,9 +53,22 @@ interface DataTableProps<TData, TValue> {
     })
     table.getState().pagination.pageSize = 8
 
+    const [filterValue, setFilterValue] = useState<string>("")
+    useEffect(() => {
+      table.setGlobalFilter(filterValue);
+    }, [filterValue]);
+
     return (
         <div>
           <div className="flex items-center py-4 gap-4">
+            <Input
+              placeholder="Filter Customers..."
+              value={filterValue}
+              onChange={(event) => setFilterValue(event.target.value)}
+              className="w-auto"
+            />
+            {/*
+            // Only filters by Customer Name
             <Input
               placeholder="Filter Customers..."
               value={(table.getColumn("customer_name")?.getFilterValue() as string) ?? ""}
@@ -64,6 +77,7 @@ interface DataTableProps<TData, TValue> {
               }
               className="w-36 md:w-auto"
             />
+            */}
             <Button className='rounded-none w-28' onClick={ () => downloadToExcelCustomer()}>
               Export
             </Button>

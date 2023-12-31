@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4 gap-4">
         <Input
-          placeholder="Filter Sales..."
+          placeholder="Filter Products..."
           value={filterValue}
           onChange={(event) => setFilterValue(event.target.value)}
           className="w-auto"

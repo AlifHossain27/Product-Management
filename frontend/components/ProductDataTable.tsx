@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { downloadToExcelProduct } from '@/lib/product_xlsx'
 
 
  
@@ -56,15 +57,18 @@ export function DataTable<TData, TValue>({
   return (
     
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 gap-4">
         <Input
           placeholder="Filter Products..."
           value={(table.getColumn("product_name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("product_name")?.setFilterValue(event.target.value)
           }
-          className="w-auto"
+          className="w-36 md:w-auto"
         />
+        <Button className='rounded-none w-28' onClick={ () => downloadToExcelProduct()}>
+            Export
+        </Button>
       </div>
     <div className="rounded-md border-2">
       <Table>

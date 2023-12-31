@@ -48,7 +48,7 @@ def create_sale(user, sale: "SaleDataClass") -> "SaleDataClass":
     return SaleDataClass.from_instance(sale_model= sale_create)
 
 def get_user_sale(user: "User") -> list["SaleDataClass"]:
-    user_sales = Sale.objects.filter(user = user)
+    user_sales = Sale.objects.filter(user = user).order_by('-created_at')
 
     return [SaleDataClass.from_instance(sale) for sale in user_sales]
 

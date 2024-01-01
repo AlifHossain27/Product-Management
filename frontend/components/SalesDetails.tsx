@@ -45,11 +45,12 @@ const SalesDetails = ({ id, name, products, total, status, amount}: DetailProps)
         </DialogHeader>
     
     <div>
-        <div className="border-2 rounded-sm">
-            <ScrollArea className="h-[100px]">
+        <div className="border rounded-sm">
+            <ScrollArea className="h-[200px]">
                     <table className="w-full text-center">
                         <thead className="border-b-2">
                         <tr>
+                            <th>Serial No.</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Amount</th>
@@ -58,6 +59,7 @@ const SalesDetails = ({ id, name, products, total, status, amount}: DetailProps)
                         <tbody>
                         {products.data.map((product, index) => (
                             <tr key={index}>
+                                <td>{index + 1}</td>
                             <td>{product.product_name}</td>
                             <td>{product.quantity}</td>
                             <td>{product.amount}</td>
@@ -67,11 +69,19 @@ const SalesDetails = ({ id, name, products, total, status, amount}: DetailProps)
                     </table>
             </ScrollArea>
         </div>
-        <div className="pt-5">
-        <h1>Customer Name: {customer_name}</h1>
-        <h1>Total Amount: {totalAmount}</h1>
-        <h1>Status: {pending}</h1>
-        <h1>Pending Amount: {pendingAmount}</h1>
+        <div className="pt-5 flex flex-col gap-5">
+            <div className="flex-row flex justify-between">
+                <h1 className="w-full font-bold">Customer Name:</h1> <h1 className="w-full">{customer_name}</h1>
+            </div>
+            <div className="flex-row flex justify-between">
+                <h1 className="w-full font-bold">Total Amount:</h1> <h1 className="w-full">{totalAmount}</h1>
+            </div>
+            <div className="flex-row flex justify-between">
+                <h1 className="w-full font-bold">Status:</h1> <h1 className="w-full">{pending}</h1>
+            </div>
+            <div className="flex-row flex justify-between">
+                <h1 className="w-full font-bold">Pending Amount:</h1> <h1 className="w-full">{pendingAmount}</h1>
+            </div>
         </div>
     </div>
     </DialogContent>

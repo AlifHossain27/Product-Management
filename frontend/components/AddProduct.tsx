@@ -104,6 +104,7 @@ const AddProduct = ({ refreshTable, onRefresh }: AddProductProps) => {
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Amount</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 
@@ -171,7 +172,7 @@ const AddProduct = ({ refreshTable, onRefresh }: AddProductProps) => {
                 </FormItem>
             )}
             />
-            <div className='pb-5'>
+            <div className='pb-2'>
                 <Button className='w-full rounded-[9999px]' onClick={form.handleSubmit(onSubmit)}>Add</Button>
             </div>
             </form>

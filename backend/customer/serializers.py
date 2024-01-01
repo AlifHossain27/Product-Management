@@ -6,7 +6,7 @@ from . import services
 class CustomerSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     customer_name = serializers.CharField()
-    email = serializers.EmailField()
+    email = serializers.EmailField(required=False, allow_blank=True)
     phone = serializers.CharField()
     address = serializers.CharField()
     user_id = user_serializer.UserSerializer(read_only=True)

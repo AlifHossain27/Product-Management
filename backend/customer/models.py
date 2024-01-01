@@ -9,6 +9,6 @@ class Customer(models.Model):
         verbose_name = "user"
         )
     customer_name = models.CharField(max_length = 100, verbose_name = "Customer Name")
-    email = models.EmailField(max_length = 225, verbose_name = "Email")
-    phone = models.IntegerField(verbose_name = "Phone Number")
+    email = models.EmailField(max_length = 225, default = "",blank = True, null = True, verbose_name = "Email")
+    phone = models.CharField(max_length = 20 ,verbose_name = "Phone Number")
     address = models.CharField(max_length = 225, verbose_name = "Address")

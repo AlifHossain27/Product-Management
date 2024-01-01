@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 @dataclasses.dataclass
 class CustomerDataClass:
     customer_name: str
-    email: str
-    phone: int
-    address: str
+    email: str 
+    phone: str
+    address: str   
     user: user_service.UserDataClass = None
     id: int = None
 

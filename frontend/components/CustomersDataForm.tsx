@@ -25,7 +25,7 @@ import { Button } from './ui/button'
 const formSchema = z.object({
     customer_name: z.string(),
     email: z.string().optional(),
-    phone: z.coerce.number(),
+    phone: z.string(),
     address: z.string().optional()
 })
 
@@ -37,7 +37,7 @@ const CustomersDataForm = () => {
         defaultValues: {
           customer_name: '',
           email: '',
-          phone: 0,
+          phone: '',
           address: ''
         },
       })

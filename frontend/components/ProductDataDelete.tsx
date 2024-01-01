@@ -56,7 +56,7 @@ const ProductDataDelete = ({id, name}: ProductProps) => {
         </DialogDescription>
         </DialogHeader>
         <DialogClose>
-          <Button variant= "destructive" onClick={() => deleteProduct()}>Proceed</Button>
+          <Button variant= "destructive" className="w-full" onClick={() => deleteProduct()}>Proceed</Button>
         </DialogClose>
     </DialogContent>
     </Dialog>

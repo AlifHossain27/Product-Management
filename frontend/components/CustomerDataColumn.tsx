@@ -10,7 +10,7 @@ export type Customers = {
     id: number,
     customer_name: string,
     email: string,
-    phone:  number,
+    phone:  string,
     address: string,
 }
 

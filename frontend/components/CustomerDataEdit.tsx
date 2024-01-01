@@ -28,14 +28,14 @@ type CustomerProps = {
     id: number,
     name: string,
     email: string,
-    phone:  number,
+    phone:  string,
     address: string,
 }
 
 const formSchema = z.object({
   customer_name: z.string(),
   email: z.string().optional(),
-  phone: z.coerce.number(),
+  phone: z.string(),
   address: z.string().optional()
 })
 

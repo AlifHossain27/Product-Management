@@ -75,6 +75,9 @@ class MonthlySalesRevenueRateAPI(views.APIView):
         else:
             increase_percentage = ((current_month_sales - previous_month_sales) / previous_month_sales) * 100
 
+        # Round the increase_percentage to 2 decimal places
+        increase_percentage = round(increase_percentage, 2)
+
         response_data = {
             "current_month_sales": current_month_sales,
             "previous_month_sales": previous_month_sales,
@@ -101,6 +104,9 @@ class MonthlySalesRateAPI(views.APIView):
             increase_percentage = 100  # Consider infinite increase if previous month had no sales
         else:
             increase_percentage = ((current_month_sales - previous_month_sales) / previous_month_sales) * 100
+
+        # Round the increase_percentage to 2 decimal places
+        increase_percentage = round(increase_percentage, 2)
 
         response_data = {
             "current_month_sales": current_month_sales,
@@ -133,6 +139,9 @@ class YearlySalesRevenueRateAPI(views.APIView):
         else:
             increase_percentage = ((current_year_sales - previous_year_sales) / previous_year_sales) * 100
 
+        # Round the increase_percentage to 2 decimal places
+        increase_percentage = round(increase_percentage, 2)
+
         response_data = {
             "current_year_sales": current_year_sales,
             "previous_year_sales": previous_year_sales,
@@ -158,6 +167,9 @@ class YearlySalesRateAPI(views.APIView):
             increase_percentage = 100  # Consider infinite increase if the previous year had no sales
         else:
             increase_percentage = ((current_year_sales - previous_year_sales) / previous_year_sales) * 100
+
+        # Round the increase_percentage to 2 decimal places
+        increase_percentage = round(increase_percentage, 2)
 
         response_data = {
             "current_year_sales": current_year_sales,
